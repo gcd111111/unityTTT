@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 03c76e5715c214c459de97cfde017b7a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hotfixDll: {fileID: 4900000, guid: 72bc05cbbd672ed4cbfec262f122bec5, type: 3}
+  - hotfixPdb: {fileID: 4900000, guid: f63d9ffffe3b0e34fbdf9826ec327f2f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
