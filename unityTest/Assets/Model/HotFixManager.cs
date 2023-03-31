@@ -138,9 +138,9 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
             //第三个参数：类的实例(静态函数不用写实例，动态的要添加实例参数
             //第四个参数：参数类型
             appDomain.Invoke(name, "无参函数", null, null);
-            appDomain.Invoke(name, "有一参数函数", null, "皮学渣");
-            appDomain.Invoke(name, "有多参函数", null, new string[] { "皮学渣", "学渣皮" });
-            appDomain.Invoke(name, "多个不同参数类型无返回函数", null, new object[] { "皮学渣", 211 });
+            appDomain.Invoke(name, "有一参数函数", null, "gcd");
+            appDomain.Invoke(name, "有多参函数", null, new string[] { "gcd", "gcd" });
+            appDomain.Invoke(name, "多个不同参数类型无返回函数", null, new object[] { "gcd", 211 });
 
             #endregion
 
@@ -148,11 +148,11 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
             object m1 = appDomain.Invoke(name, "无参函数有返回值", null, null);
             Debug.Log(m1);
-            object m2 = appDomain.Invoke(name, "有一参数函数有返回", null, "皮学渣");
+            object m2 = appDomain.Invoke(name, "有一参数函数有返回", null, "gcd");
             Debug.Log(m2);
-            object m3 = appDomain.Invoke(name, "有多参函数有返回", null, new string[] { "皮学渣", "学渣皮" });
+            object m3 = appDomain.Invoke(name, "有多参函数有返回", null, new string[] { "gcd", "gcd" });
             Debug.Log(m3);
-            object m4 = appDomain.Invoke(name, "多个不同参数类型无返回函数有返回", null, new object[] { "皮学渣", 211985 });
+            object m4 = appDomain.Invoke(name, "多个不同参数类型无返回函数有返回", null, new object[] { "gcd", 211985 });
             Debug.Log(m4);
 
             #endregion
@@ -176,14 +176,14 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
             List<IType> param2 = new List<IType>();
             param2.Add(appDomain.GetType(typeof(string)));//这里对应的函数参数什么类型，有几个都这样添加进来
             IMethod method2 = type2.GetMethod("Log", param2, null);
-            appDomain.Invoke(method2, null, "皮学渣");
+            appDomain.Invoke(method2, null, "gcd");
 
             IType type3 = appDomain.LoadedTypes[name];//这里将指定类的所有类型都加载出来
             List<IType> param3 = new List<IType>();
             param3.Add(appDomain.GetType(typeof(string)));
             param3.Add(appDomain.GetType(typeof(int)));
             IMethod method3 = type2.GetMethod("Log", param3, null);
-            appDomain.Invoke(method3, null, new object[] { "皮学渣", 211985 });
+            appDomain.Invoke(method3, null, new object[] { "gcd", 211985 });
 
 
             //该形式也可和前面的函数类型进行调用，只是那样直接调用的比较方便
@@ -225,10 +225,10 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
         {
             ILTypeInstance test = appDomain.Instantiate(name, null);
             appDomain.Invoke(name, "动态无参", test, null);
-            appDomain.Invoke(name, "动态有一参函数", test, "皮学渣");
+            appDomain.Invoke(name, "动态有一参函数", test, "gcd");
             object x1 = appDomain.Invoke(name, "动态无参有返回值", test, null);
             Debug.Log(x1);
-            object x2 = appDomain.Invoke(name, "动态有一参函数有返回值", test, "皮学渣");
+            object x2 = appDomain.Invoke(name, "动态有一参函数有返回值", test, "gcd");
             Debug.Log(x2);
         }
 
@@ -259,7 +259,7 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
         {
             ILTypeInstance test = appDomain.Instantiate(name);
             appDomain.InvokeGenericMethod(name, "泛型函数",
-                new IType[] { appDomain.GetType(typeof(string)) }, test, "皮学渣");
+                new IType[] { appDomain.GetType(typeof(string)) }, test, "gcd");
         }
 
         void 调用委托()
@@ -297,7 +297,7 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
             int id = (int)appDomain.Invoke(pName, "get_MyID", uibase, null);
             Debug.Log(id);
             appDomain.Invoke(pName, "HandleEvent", uibase, 50);
-            appDomain.Invoke(pName, "Open", uibase, "皮学渣");
+            appDomain.Invoke(pName, "Open", uibase, "gcd");
         }
 
 
