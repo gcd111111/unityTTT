@@ -22,9 +22,9 @@ using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
     {
 
         public GameObject code;//code预制体，它身上带有Unity.HotFix.dll和Unity.HotFix.pdb文件
-    private const string codeDir = "Assets/Res/Code/";//生成的dll和pdb文件夹存放的位置
-    private const string hotfixDll = "Unity.HotFix.dll";//加载文件夹名称
-    private const string hotfixPdb = "Unity.HotFix.pdb";//加载文件夹名称
+    //private const string codeDir = "Assets/Res/Code/";//生成的dll和pdb文件夹存放的位置
+    //private const string hotfixDll = "Unity.HotFix.dll";//加载文件夹名称
+    //private const string hotfixPdb = "Unity.HotFix.pdb";//加载文件夹名称
     private MemoryStream dllStream;
         private MemoryStream pdbStream;
 

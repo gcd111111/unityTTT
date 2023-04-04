@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: RemoteGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: RemoteGroup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 43b116a0a3fb6e646889d5b7fe4ddc53
+  m_SerializeEntries:
+  - m_GUID: dd712b6cc03b39c40b0385a8603c93ff
+    m_Address: Assets/Res/Prefabs/Triangle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4ce97106789a44840b58c48fb325f81e
+    m_Address: Assets/Res/Textures/1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 98bf8dc6a86ca634eae2d503133d8232, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7bff1455245832145a8b72d837510839, type: 2}
+    - {fileID: 11400000, guid: 57a8e422154c7134a8d7844c9b1eb3bc, type: 2}
