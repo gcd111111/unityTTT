@@ -11,7 +11,6 @@ public class PlayerAttack : MonoBehaviour {
     public float damage = 20f;
 
     private Animator zoomCameraAnim;
-    private bool zoomed;
 
     private Camera mainCam;
 
@@ -29,8 +28,7 @@ public class PlayerAttack : MonoBehaviour {
 
         weapon_Manager = GetComponent<WeaponManager>();
 
-        zoomCameraAnim = transform.Find(Tags.LOOK_ROOT)
-                                  .transform.Find(Tags.ZOOM_CAMERA).GetComponent<Animator>();
+        zoomCameraAnim = transform.Find(Tags.LOOK_ROOT) .transform.Find(Tags.ZOOM_CAMERA).GetComponent<Animator>();
 
         crosshair = GameObject.FindWithTag(Tags.CROSSHAIR);
 
@@ -38,24 +36,20 @@ public class PlayerAttack : MonoBehaviour {
 
     }
 
-    // Use this for initialization
     void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
         WeaponShoot();
         ZoomInAndOut();
     }
-
+    //武器射击
     void WeaponShoot() {
 
-        // if we have assault riffle
+        //连发
         if(weapon_Manager.GetCurrentSelectedWeapon().fireType == WeaponFireType.MULTIPLE) {
 
-            // if we press and hold left mouse click AND
-            // if Time is greater than the nextTimeToFire
             if(Input.GetMouseButton(0) && Time.time > nextTimeToFire) {
 
                 nextTimeToFire = Time.time + 1f / fireRate;
@@ -63,21 +57,16 @@ public class PlayerAttack : MonoBehaviour {
                 weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
 
                  BulletFired();
-
             }
-
-
-            // if we have a regular weapon that shoots once
+            // 单发
         } else {
 
             if(Input.GetMouseButtonDown(0)) {
 
-                // handle axe
                 if(weapon_Manager.GetCurrentSelectedWeapon().tag == Tags.AXE_TAG) {
                     weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
                 }
 
-                // handle shoot
                 if(weapon_Manager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET) {
 
                     weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
@@ -86,42 +75,31 @@ public class PlayerAttack : MonoBehaviour {
 
                 } else {
 
-                    // we have an arrow or spear
                     if(is_Aiming) {
 
                         weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
 
-                        if(weapon_Manager.GetCurrentSelectedWeapon().bulletType
-                           == WeaponBulletType.ARROW) {
-
-                            // throw arrow
+                        if(weapon_Manager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.ARROW) {
                             ThrowArrowOrSpear(true);
 
-                        } else if(weapon_Manager.GetCurrentSelectedWeapon().bulletType
-                                  == WeaponBulletType.SPEAR) {
-
-                            // throw spear
+                        } else if(weapon_Manager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.SPEAR) {
                             ThrowArrowOrSpear(false);
 
                         }
 
                     }
 
-                } // else
+                } 
+            } 
 
+        } 
 
-            } // if input get mouse button 0
-
-        } // else
-
-    } // weapon shoot
-
+    } 
+    //瞄准
     void ZoomInAndOut() {
 
-        // we are going to aim with our camera on the weapon
         if(weapon_Manager.GetCurrentSelectedWeapon().weapon_Aim == WeaponAim.AIM) {
 
-            // if we press and hold right mouse button
             if(Input.GetMouseButtonDown(1)) {
 
                 zoomCameraAnim.Play(AnimationTags.ZOOM_IN_ANIM);
@@ -129,7 +107,6 @@ public class PlayerAttack : MonoBehaviour {
                 crosshair.SetActive(false);
             }
 
-            // when we release the right mouse button click
             if (Input.GetMouseButtonUp(1)) {
 
                 zoomCameraAnim.Play(AnimationTags.ZOOM_OUT_ANIM);
@@ -137,7 +114,7 @@ public class PlayerAttack : MonoBehaviour {
                 crosshair.SetActive(true);
             }
 
-        } // if we need to zoom the weapon
+        } 
 
         if(weapon_Manager.GetCurrentSelectedWeapon().weapon_Aim == WeaponAim.SELF_AIM) {
 
@@ -157,31 +134,26 @@ public class PlayerAttack : MonoBehaviour {
 
             }
 
-        } // weapon self aim
-
-    } // zoom in and out
-
+        } 
+    } 
+    //射箭，投矛
     void ThrowArrowOrSpear(bool throwArrow) {
 
         if(throwArrow) {
 
             GameObject arrow = Instantiate(arrow_Prefab);
             arrow.transform.position = arrow_Bow_StartPosition.position;
-
             arrow.GetComponent<ArrowBowScript>().Launch(mainCam);
 
         } else {
 
             GameObject spear = Instantiate(spear_Prefab);
             spear.transform.position = arrow_Bow_StartPosition.position;
-
             spear.GetComponent<ArrowBowScript>().Launch(mainCam);
 
         }
-
-
-    } // throw arrow or spear
-
+    } 
+    //子弹击中
     void BulletFired() {
 
         RaycastHit hit;
@@ -191,12 +163,9 @@ public class PlayerAttack : MonoBehaviour {
             if(hit.transform.tag == Tags.ENEMY_TAG) {
                 hit.transform.GetComponent<HealthScript>().ApplyDamage(damage);
             }
-
         }
-
-    } // bullet fired
-
-} // class
+    } 
+}
 
 
 

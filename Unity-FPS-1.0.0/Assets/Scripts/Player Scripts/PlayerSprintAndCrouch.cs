@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerSprintAndCrouch : MonoBehaviour {
 
@@ -47,16 +45,13 @@ public class PlayerSprintAndCrouch : MonoBehaviour {
         player_Footsteps.volume_Max = walk_Volume_Max;
         player_Footsteps.step_Distance = walk_Step_Distance;
     }
-
-    // Update is called once per frame
     void Update () {
         Sprint();
         Crouch();
 	}
-
+    //冲刺
     void Sprint() {
 
-        // if we have stamina we can sprint
         if(sprint_Value > 0f) {
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && !is_Crouching) {
@@ -89,7 +84,7 @@ public class PlayerSprintAndCrouch : MonoBehaviour {
 
                 sprint_Value = 0f;
 
-                // reset the speed and sound
+    
                 playerMovement.speed = move_Speed;
                 player_Footsteps.step_Distance = walk_Step_Distance;
                 player_Footsteps.volume_Min = walk_Volume_Min;
@@ -117,13 +112,12 @@ public class PlayerSprintAndCrouch : MonoBehaviour {
         }
 
 
-    } // sprint
-
+    }
+    //下蹲
     void Crouch() {
 
         if(Input.GetKeyDown(KeyCode.C)) {
 
-            // if we are crouching - stand up
             if(is_Crouching) {
 
                 look_Root.localPosition = new Vector3(0f, stand_Height, 0f);
@@ -136,7 +130,6 @@ public class PlayerSprintAndCrouch : MonoBehaviour {
                 is_Crouching = false;
 
             } else {
-                // if we are not crouching - crouch
 
                 look_Root.localPosition = new Vector3(0f, crouch_Height, 0f);
                 playerMovement.speed = crouch_Speed;
@@ -149,12 +142,11 @@ public class PlayerSprintAndCrouch : MonoBehaviour {
 
             }
 
-        } // if we press c
+        }
 
+    } 
 
-    } // crouch
-
-} // class
+} 
 
 
 

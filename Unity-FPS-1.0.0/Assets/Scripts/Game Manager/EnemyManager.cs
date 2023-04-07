@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour {
-
+    //单例
     public static EnemyManager instance;
 
     [SerializeField]
@@ -15,10 +17,10 @@ public class EnemyManager : MonoBehaviour {
     private int cannibal_Enemy_Count, boar_Enemy_Count;
 
     private int initial_Cannibal_Count, initial_Boar_Count;
-
+    //等待敌人出现
     public float wait_Before_Spawn_Enemies_Time = 10f;
 
-    // Use this for initialization
+   
     void Awake () {
         MakeInstance();
 	}
@@ -26,9 +28,7 @@ public class EnemyManager : MonoBehaviour {
     void Start() {
         initial_Cannibal_Count = cannibal_Enemy_Count;
         initial_Boar_Count = boar_Enemy_Count;
-
         SpawnEnemies();
-
         StartCoroutine("CheckToSpawnEnemies");
     }
 
@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour {
         SpawnCannibals();
         SpawnBoars();
     }
-
+    //食人族出现
     void SpawnCannibals() {
 
         int index = 0;
@@ -54,15 +54,12 @@ public class EnemyManager : MonoBehaviour {
             }
 
             Instantiate(cannibal_Prefab, cannibal_SpawnPoints[index].position, Quaternion.identity);
-
             index++;
 
         }
-
         cannibal_Enemy_Count = 0;
-
     }
-
+    //野猪出现
     void SpawnBoars() {
 
         int index = 0;
@@ -83,7 +80,7 @@ public class EnemyManager : MonoBehaviour {
         boar_Enemy_Count = 0;
 
     }
-
+    //选择出生的敌人
     IEnumerator CheckToSpawnEnemies() {
         yield return new WaitForSeconds(wait_Before_Spawn_Enemies_Time);
 
@@ -94,65 +91,28 @@ public class EnemyManager : MonoBehaviour {
         StartCoroutine("CheckToSpawnEnemies");
 
     }
-
+    //敌人死亡
     public void EnemyDied(bool cannibal) {
-
-        if(cannibal) {
+       ;
+        if (cannibal) {
 
             cannibal_Enemy_Count++;
-
-            if(cannibal_Enemy_Count > initial_Cannibal_Count) {
+            if (cannibal_Enemy_Count > initial_Cannibal_Count) {
                 cannibal_Enemy_Count = initial_Cannibal_Count;
             }
 
         } else {
 
             boar_Enemy_Count++;
-
-            if(boar_Enemy_Count > initial_Boar_Count) {
+            if (boar_Enemy_Count > initial_Boar_Count) {
                 boar_Enemy_Count = initial_Boar_Count;
             }
 
         }
-
     }
 
     public void StopSpawning() {
         StopCoroutine("CheckToSpawnEnemies");
     }
 
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} 

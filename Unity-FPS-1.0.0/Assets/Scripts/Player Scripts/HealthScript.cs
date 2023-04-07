@@ -18,52 +18,50 @@ public class HealthScript : MonoBehaviour {
     private EnemyAudio enemyAudio;
 
     private PlayerStats player_Stats;
+    
+    void Awake () {
 
-	void Awake () {
-	    
         if(is_Boar || is_Cannibal) {
             enemy_Anim = GetComponent<EnemyAnimator>();
             enemy_Controller = GetComponent<EnemyController>();
             navAgent = GetComponent<NavMeshAgent>();
 
-            // get enemy audio
             enemyAudio = GetComponentInChildren<EnemyAudio>();
         }
 
         if(is_Player) {
             player_Stats = GetComponent<PlayerStats>();
         }
+        
 
-	}
-	
+    }
+	//受伤
     public void ApplyDamage(float damage) {
 
-        // if we died don't execute the rest of the code
         if (is_Dead)
             return;
 
         health -= damage;
 
         if(is_Player) {
-            // show the stats(display the health UI value)
+            // 更新UI
             player_Stats.Display_HealthStats(health);
         }
 
         if(is_Boar || is_Cannibal) {
+            //受伤变为追踪，且距离变为为50
             if(enemy_Controller.Enemy_State == EnemyState.PATROL) {
                 enemy_Controller.chase_Distance = 50f;
             }
         }
 
         if(health <= 0f) {
-
             PlayerDied();
-
             is_Dead = true;
         }
 
-    } // apply damage
-
+    } 
+    //死亡
     void PlayerDied() {
 
         if(is_Cannibal) {
@@ -77,8 +75,7 @@ public class HealthScript : MonoBehaviour {
             enemy_Anim.enabled = false;
 
             StartCoroutine(DeadSound());
-
-            // EnemyManager spawn more enemies
+            //生成敌人
             EnemyManager.instance.EnemyDied(true);
         }
 
@@ -89,10 +86,9 @@ public class HealthScript : MonoBehaviour {
             enemy_Controller.enabled = false;
 
             enemy_Anim.Dead();
-
+            
             StartCoroutine(DeadSound());
 
-            // EnemyManager spawn more enemies
             EnemyManager.instance.EnemyDied(false);
         }
 
@@ -103,14 +99,12 @@ public class HealthScript : MonoBehaviour {
             for (int i = 0; i < enemies.Length; i++) {
                 enemies[i].GetComponent<EnemyController>().enabled = false;
             }
-
-            // call enemy manager to stop spawning enemis
             EnemyManager.instance.StopSpawning();
 
             GetComponent<PlayerMovement>().enabled = false;
             GetComponent<PlayerAttack>().enabled = false;
             GetComponent<WeaponManager>().GetCurrentSelectedWeapon().gameObject.SetActive(false);
-
+          
         }
 
         if(tag == Tags.PLAYER_TAG) {
@@ -123,12 +117,12 @@ public class HealthScript : MonoBehaviour {
 
         }
 
-    } // player died
-
+    } 
+    //玩家死亡
     void RestartGame() {
         UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
-
+    //敌人死亡
     void TurnOffGameObject() {
         gameObject.SetActive(false);
     }
@@ -138,7 +132,7 @@ public class HealthScript : MonoBehaviour {
         enemyAudio.Play_DeadSound();
     }
 
-} // class
+} 
 
 
 

@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
 
-} // class
+} 
 
 
 

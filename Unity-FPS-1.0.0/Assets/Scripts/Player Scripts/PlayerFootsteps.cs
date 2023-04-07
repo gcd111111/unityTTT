@@ -28,21 +28,16 @@ public class PlayerFootsteps : MonoBehaviour {
 	void Update () {
         CheckToPlayFootstepSound();	
 	}
-
+    //脚步声
     void CheckToPlayFootstepSound() {
 
-        // if we are NOT on the ground
         if (!character_Controller.isGrounded) 
             return;
             
-
         if(character_Controller.velocity.sqrMagnitude > 0) {
 
-            // accumulated distance is the value how far can we go 
-            // e.g. make a step or sprint, or move while crouching
-            // until we play the footstep sound
             accumulated_Distance += Time.deltaTime;
-
+          
             if(accumulated_Distance > step_Distance) {
 
                 footstep_Sound.volume = Random.Range(volume_Min, volume_Max);
@@ -56,13 +51,9 @@ public class PlayerFootsteps : MonoBehaviour {
         } else {
             accumulated_Distance = 0f;
         }
-
-
     }
 
-
-
-} // class
+} 
 
 
 

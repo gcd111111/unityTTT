@@ -9,7 +9,7 @@ public class AttackScript : MonoBehaviour {
     public LayerMask layerMask;
 	
 	void Update () {
-
+        //球形碰撞实现攻击检测
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
 
         if(hits.Length > 0) {
@@ -19,10 +19,8 @@ public class AttackScript : MonoBehaviour {
             gameObject.SetActive(false);
 
         }
-
 	}
-
-} // class
+} 
 
 
 

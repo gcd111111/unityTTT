@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//武器瞄准
 public enum WeaponAim {
     NONE,
-    SELF_AIM,
-    AIM
+    SELF_AIM,//自己瞄准
+    AIM//正常瞄准
 }
-
+//武器射击
 public enum WeaponFireType {
-    SINGLE,
-    MULTIPLE
+    SINGLE,//单反
+    MULTIPLE//连发
 }
-
+//武器弹药
 public enum WeaponBulletType {
-    BULLET,
-    ARROW,
-    SPEAR,
+    BULLET,//子弹
+    ARROW,//箭
+    SPEAR,//矛
     NONE
 }
 
@@ -76,41 +76,5 @@ public class WeaponHandler : MonoBehaviour {
         }
     }
 
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 

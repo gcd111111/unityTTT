@@ -16,7 +16,6 @@ public class ArrowBowScript : MonoBehaviour {
         myBody = GetComponent<Rigidbody>();
     }
 
-    // Use this for initialization
     void Start () {
         Invoke("DeactivateGameObject", deactivate_Timer);
 	}
@@ -37,7 +36,6 @@ public class ArrowBowScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider target) {
 
-        // after we touch an enemy deactivate game object
         if(target.tag == Tags.ENEMY_TAG) {
 
             target.GetComponent<HealthScript>().ApplyDamage(damage);
@@ -47,9 +45,7 @@ public class ArrowBowScript : MonoBehaviour {
         }
 
     }
-
-} // class
-
+}
 
 
 

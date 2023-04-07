@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public enum EnemyState {
-    PATROL,
-    CHASE,
-    ATTACK
+    PATROL,//巡逻
+    CHASE,//追踪
+    ATTACK,//攻击
+    DIE//死亡
 }
 
 public class EnemyController : MonoBehaviour {
@@ -29,6 +28,7 @@ public class EnemyController : MonoBehaviour {
     private float patrol_Timer;
 
     public float wait_Before_Attack = 2f;
+
     private float attack_Timer;
 
     private Transform target;
@@ -40,31 +40,20 @@ public class EnemyController : MonoBehaviour {
     void Awake() {
         enemy_Anim = GetComponent<EnemyAnimator>();
         navAgent = GetComponent<NavMeshAgent>();
-
         target = GameObject.FindWithTag(Tags.PLAYER_TAG).transform;
-
         enemy_Audio = GetComponentInChildren<EnemyAudio>();
 
     }
 
-    // Use this for initialization
     void Start () {
 
         enemy_State = EnemyState.PATROL;
-
         patrol_Timer = patrol_For_This_Time;
-
-        // when the enemy first gets to the player
-        // attack right away
         attack_Timer = wait_Before_Attack;
-
-        // memorize the value of chase distance
-        // so that we can put it back
         current_Chase_Distance = chase_Distance;
 
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
         if(enemy_State == EnemyState.PATROL) {
@@ -78,24 +67,19 @@ public class EnemyController : MonoBehaviour {
         if (enemy_State == EnemyState.ATTACK) {
             Attack();
         }
-
     }
-
+    //巡逻
     void Patrol() {
-
-        // tell nav agent that he can move
+        //启用导航
         navAgent.isStopped = false;
         navAgent.speed = walk_Speed;
-
-        // add to the patrol timer
+        
         patrol_Timer += Time.deltaTime;
 
         if(patrol_Timer > patrol_For_This_Time) {
 
             SetNewRandomDestination();
-
             patrol_Timer = 0f;
-
         }
 
         if(navAgent.velocity.sqrMagnitude > 0) {
@@ -108,29 +92,23 @@ public class EnemyController : MonoBehaviour {
 
         }
 
-        // test the distance between the player and the enemy
         if(Vector3.Distance(transform.position, target.position) <= chase_Distance) {
 
             enemy_Anim.Walk(false);
 
             enemy_State = EnemyState.CHASE;
 
-            // play spotted audio
             enemy_Audio.Play_ScreamSound();
 
         }
 
-
-    } // patrol
-
+    } 
+    //追踪
     void Chase() {
-
-        // enable the agent to move again
+        //启用网格导航
         navAgent.isStopped = false;
         navAgent.speed = run_Speed;
-
-        // set the player's position as the destination
-        // because we are chasing(running towards) the player
+        //朝目标
         navAgent.SetDestination(target.position);
 
         if (navAgent.velocity.sqrMagnitude > 0) {
@@ -142,42 +120,33 @@ public class EnemyController : MonoBehaviour {
             enemy_Anim.Run(false);
 
         }
-
-        // if the distance between enemy and player is less than attack distance
+        //目标小于等于攻击距离
         if(Vector3.Distance(transform.position, target.position) <= attack_Distance) {
 
-            // stop the animations
+          
             enemy_Anim.Run(false);
             enemy_Anim.Walk(false);
             enemy_State = EnemyState.ATTACK;
 
-            // reset the chase distance to previous
             if(chase_Distance != current_Chase_Distance) {
                 chase_Distance = current_Chase_Distance;
             }
-
+            //目标超出追踪距离
         } else if(Vector3.Distance(transform.position, target.position) > chase_Distance) {
-            // player run away from enemy
-
-            // stop running
+         
             enemy_Anim.Run(false);
 
             enemy_State = EnemyState.PATROL;
 
-            // reset the patrol timer so that the function
-            // can calculate the new patrol destination right away
+            //重置计时器，恢复巡逻
             patrol_Timer = patrol_For_This_Time;
-
-            // reset the chase distance to previous
             if (chase_Distance != current_Chase_Distance) {
                 chase_Distance = current_Chase_Distance;
             }
+        } 
 
-
-        } // else
-
-    } // chase
-
+    } 
+    //攻击
     void Attack() {
 
         navAgent.velocity = Vector3.zero;
@@ -188,10 +157,7 @@ public class EnemyController : MonoBehaviour {
         if(attack_Timer > wait_Before_Attack) {
 
             enemy_Anim.Attack();
-
             attack_Timer = 0f;
-
-            // play attack sound
             enemy_Audio.Play_AttackSound();
 
         }
@@ -202,10 +168,9 @@ public class EnemyController : MonoBehaviour {
             enemy_State = EnemyState.CHASE;
 
         }
+    }
 
-
-    } // attack
-
+    //巡逻随机找个目标点
     void SetNewRandomDestination() {
 
         float rand_Radius = Random.Range(patrol_Radius_Min, patrol_Radius_Max);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponManager : MonoBehaviour {
 
@@ -9,13 +7,11 @@ public class WeaponManager : MonoBehaviour {
 
     private int current_Weapon_Index;
 
-	// Use this for initialization
 	void Start () {
         current_Weapon_Index = 0;
         weapons[current_Weapon_Index].gameObject.SetActive(true);
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -42,20 +38,16 @@ public class WeaponManager : MonoBehaviour {
             TurnOnSelectedWeapon(5);
         }
 
-    } // update
-
+    } 
+    //切换武器
     void TurnOnSelectedWeapon(int weaponIndex) {
 
         if (current_Weapon_Index == weaponIndex)
             return;
-
-        // turn of the current weapon
         weapons[current_Weapon_Index].gameObject.SetActive(false);
 
-        // turn on the selected weapon
         weapons[weaponIndex].gameObject.SetActive(true);
 
-        // store the current selected weapon index
         current_Weapon_Index = weaponIndex;
 
     }
@@ -64,8 +56,7 @@ public class WeaponManager : MonoBehaviour {
         return weapons[current_Weapon_Index];
     }
 
-} // class
-
+} 
 
 
 
