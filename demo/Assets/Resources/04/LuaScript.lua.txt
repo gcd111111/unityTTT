@@ -1,0 +1,23 @@
+--stu = {name = "zhangsan", age = 23, sex = 0, 1, 2, 3}
+
+
+--[[
+stu = {
+    name = "zhangsan",
+    age = 23,
+    study = function(self, subject)
+        print("subject="..subject)
+    end
+}
+ 
+--function stu.raiseHand(self, hand)
+function stu:raiseHand(hand)
+    print("hand="..hand)
+end
+]]
+
+--stu = {name = "zhangsan", age = 23, "math", 2, true}
+
+--stu = {name = "zhangsan", age = 23, "math", 2, true}
+
+stu = {name = "zhangsan", age = 23, "math", 2, true}

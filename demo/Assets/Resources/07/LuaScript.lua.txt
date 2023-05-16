@@ -1,0 +1,7 @@
+local Person = CS.Person
+ 
+person = Person("zhangsan", 23)
+print("name="..person.name..", age="..person.age) -- LUA: name=zhangsan, age=23
+print(person:ToString()) -- LUA: name=zhangsan, age=23
+person:Run() -- run
+person:Eat("aple") -- eat aple

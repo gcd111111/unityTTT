@@ -1,0 +1,23 @@
+function awake()
+    print("awake")
+end
+ 
+function onEnable()
+    print("onEnable")
+end
+ 
+function start()
+    print("start")
+end
+ 
+function update()
+    print("update")
+end
+ 
+function onDisable()
+    print("onDisable")
+end
+ 
+function onDestroy()
+    print("onDestroy")
+end

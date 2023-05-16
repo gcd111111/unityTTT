@@ -1,0 +1,10 @@
+local GameObject = CS.UnityEngine.GameObject
+local PrimitiveType = CS.UnityEngine.PrimitiveType
+local Color = CS.UnityEngine.Color
+local Rigidbody = CS.UnityEngine.Rigidbody
+ 
+GameObject("xxx") --创建空对象
+go = GameObject.CreatePrimitive(PrimitiveType.Cube)
+go:GetComponent("MeshRenderer").sharedMaterial.color = Color.red
+rigidbody = go:AddComponent(typeof(Rigidbody))
+rigidbody.mass = 1000

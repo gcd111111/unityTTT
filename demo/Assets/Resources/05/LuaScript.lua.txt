@@ -1,0 +1,19 @@
+--无参函数
+function func1()
+    print("func1")
+end
+ 
+--有参函数
+function func2(arg)
+    print("func2, arg="..arg)
+end
+ 
+--有返回值函数
+function func3(a, b)
+    return a * b
+end
+ 
+--有多返回值函数
+function func4(a, b)
+    return a + b, a - b
+end
